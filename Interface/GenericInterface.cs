@@ -48,6 +48,16 @@ namespace BitFab.KW1281Test.Interface
             _port.BreakState = on;
         }
 
+        public bool CanBitBang()
+        {
+            return false;
+        }
+
+        public void BitBang(byte data, byte delay)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ClearReceiveBuffer()
         {
             _port.DiscardInBuffer();

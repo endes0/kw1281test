@@ -105,6 +105,16 @@ namespace BitFab.KW1281Test.Interface
             FT.AssertOk(status);
         }
 
+        public bool CanBitBang()
+        {
+            return false;
+        }
+
+        public void BitBang(byte data, byte delay)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ClearReceiveBuffer()
         {
             var status = _ft.Purge(_handle, FT.PurgeMask.RX);
@@ -184,7 +194,7 @@ namespace BitFab.KW1281Test.Interface
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                libName = "ftd2xx.so";
+                libName = "ftd2xx";
                 isLinux = true;
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

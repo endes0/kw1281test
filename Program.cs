@@ -1,4 +1,4 @@
-﻿global using static BitFab.KW1281Test.Program;
+global using static BitFab.KW1281Test.Program;
 
 using BitFab.KW1281Test.Interface;
 using BitFab.KW1281Test.Logging;
@@ -317,6 +317,10 @@ namespace BitFab.KW1281Test
 
                 case "dumpmem":
                     tester.DumpMem(address, length, _filename);
+                    break;
+
+                case "dumprom":
+                    tester.DumpRom(address, length, _filename);
                     break;
 
                 case "findlogins":

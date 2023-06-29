@@ -1,4 +1,4 @@
-﻿using BitFab.KW1281Test.Interface;
+using BitFab.KW1281Test.Interface;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -130,6 +130,12 @@ namespace BitFab.KW1281Test
         /// False for odd parity (KWP1281), true for even parity (KWP2000).</param>
         private void BitBang5Baud(byte b, bool evenParity)
         {
+            if (Interface.CanBitBang())
+            {
+                Interface.BitBang(b, 200);
+                return;
+            }
+
             const int bitsPerSec = 5;
             long ticksPerSecond = Stopwatch.Frequency;
             long ticksPerBit = ticksPerSecond / bitsPerSec;

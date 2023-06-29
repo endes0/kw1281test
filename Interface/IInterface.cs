@@ -17,6 +17,10 @@ namespace BitFab.KW1281Test.Interface
 
         void SetBreak(bool on);
 
+        bool CanBitBang();
+
+        void BitBang(byte data, byte delay);
+
         void ClearReceiveBuffer();
 
         void SetBaudRate(int baudRate);
