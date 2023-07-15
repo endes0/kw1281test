@@ -398,6 +398,11 @@ namespace BitFab.KW1281Test
         /// <returns></returns>
         private static IInterface OpenPort(string portName, int baudRate)
         {
+            if (portName.ToUpper() == "AMT")
+            {
+                Log.WriteLine($"Opening AMT Flash");
+                return new AMTFlashInterface("", baudRate);
+            }
             if (Regex.IsMatch(portName.ToUpper(), @"\A[A-Z0-9]{8}\Z"))
             {
                 Log.WriteLine($"Opening FTDI serial port {portName}");

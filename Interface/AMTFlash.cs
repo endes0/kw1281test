@@ -138,6 +138,7 @@ namespace BitFab.KW1281Test.Interface
 
         public void Open()
         {
+            
             _device = UsbDevice.OpenUsbDevice(_deviceFinder);
             if (_device == null)
             {
@@ -408,10 +409,13 @@ namespace BitFab.KW1281Test.Interface
                         return finalBuf;
                     } else
                     {
-                        retrys = 10;
+                        retrys = 1000;
                         continue;
                     }
                 }
+
+                System.Threading.Thread.Sleep(1);
+                
             }
 
             if (!ignoreTimeout)
