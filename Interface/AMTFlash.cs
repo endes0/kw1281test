@@ -62,7 +62,7 @@ namespace BitFab.KW1281Test.Interface
             _port.Purge();
             var buf = new byte[4] { 0x25, 0x3, delay, data };
             _port.Write(buf);
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(1000);
             /*var ok = _port.Read(1);
             while (ok.Length != 0 && (ok[0] == 0 || ok[0] == 0xFF))
             {
@@ -233,6 +233,7 @@ namespace BitFab.KW1281Test.Interface
 
         public void Write(byte[] data)
         {
+            Log.WriteLine($"Write: {BitConverter.ToString(data)}");
             // Apply write bitmask
             for (int i = 0; i < data.Length; i++)
             {
@@ -251,6 +252,8 @@ namespace BitFab.KW1281Test.Interface
             {
                 data[i] ^= readBitmask;
             }
+
+            Log.WriteLine($"Read : {BitConverter.ToString(data)}");
 
             return data;
         }
@@ -341,7 +344,7 @@ namespace BitFab.KW1281Test.Interface
         private void _write(byte[] data)
         {
             var written = 0;
-            Log.WriteLine($"Write: {BitConverter.ToString(data)}");
+            //Log.WriteLine($"Write: {BitConverter.ToString(data)}");
             var err = _writer.Write(data, 5000, out written);
             if (err != ErrorCode.None)
             {
@@ -366,6 +369,7 @@ namespace BitFab.KW1281Test.Interface
 
             if (pos >= length)
             {
+                //Log.WriteLine($"Readb : {BitConverter.ToString(finalBuf)}");
                 return finalBuf;
             }
 
@@ -405,7 +409,7 @@ namespace BitFab.KW1281Test.Interface
 
                     if (pos >= length-1)
                     {
-                        Log.WriteLine($"Read : {BitConverter.ToString(finalBuf)}");
+                        //Log.WriteLine($"Read : {BitConverter.ToString(finalBuf)}");
                         return finalBuf;
                     } else
                     {
@@ -414,7 +418,10 @@ namespace BitFab.KW1281Test.Interface
                     }
                 }
 
+                if (!ignoreTimeout)
+                {
                 System.Threading.Thread.Sleep(1);
+                }
                 
             }
 

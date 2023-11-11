@@ -319,9 +319,9 @@ namespace BitFab.KW1281Test
                     tester.DumpMem(address, length, _filename);
                     break;
 
-                case "dumprom":
+                /*case "dumprom":
                     tester.DumpRom(address, length, _filename);
-                    break;
+                    break;*/
 
                 case "findlogins":
                     tester.FindLogins(login!.Value, ecuInfo.WorkshopCode);

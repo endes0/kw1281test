@@ -29,11 +29,11 @@ namespace BitFab.KW1281Test
         public int WakeUp(byte controllerAddress, bool evenParity)
         {
             // Disable garbage collection int this time-critical method
-            bool noGC = GC.TryStartNoGCRegion(1024 * 1024);
+            /*bool noGC = GC.TryStartNoGCRegion(1024 * 1024);
             if (!noGC)
             {
                 Log.WriteLine("Warning: Unable to disable GC so timing may be compromised.");
-            }
+            }*/
 
             byte syncByte = 0;
             const int maxTries = 3;
@@ -44,7 +44,9 @@ namespace BitFab.KW1281Test
                 BitBang5Baud(controllerAddress, evenParity);
 
                 // Throw away anything that might be in the receive buffer
-                Interface.ClearReceiveBuffer();
+                //Thread.Sleep(300);
+                //Interface.ClearReceiveBuffer();
+
 
                 Log.WriteLine("Reading sync byte");
                 try
@@ -65,10 +67,10 @@ namespace BitFab.KW1281Test
                 }
             }
 
-            if (noGC)
+            /*if (noGC)
             {
                 GC.EndNoGCRegion();
-            }
+            }*/
 
             if (syncByte != 0x55)
             {
@@ -188,7 +190,7 @@ namespace BitFab.KW1281Test
         private void WriteByteAndDiscardEcho(byte b)
         {
             Interface.WriteByteRaw(b);
-            var echo = Interface.ReadByte();
+            //var echo = Interface.ReadByte();
 #if false
             if (echo != b)
             {
